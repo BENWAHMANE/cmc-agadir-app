@@ -5,7 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
-import { GraduationCap, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
+import edupathLogo from "@/assets/edupath-logo.png";
 import { toast } from "sonner";
 import { z } from "zod";
 
@@ -100,14 +101,12 @@ const Auth = () => {
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
       <Card className="w-full max-w-md p-8 shadow-card">
-        <div className="flex items-center justify-center gap-3 mb-8">
-          <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-primary shadow-soft">
-            <GraduationCap className="h-8 w-8 text-primary-foreground" />
-          </div>
-          <div>
-            <h1 className="text-2xl font-bold text-foreground">EduPath</h1>
-            <p className="text-xs text-muted-foreground">Plateforme de Gestion des Formations</p>
-          </div>
+        <div className="flex items-center justify-center mb-8">
+          <img 
+            src={edupathLogo} 
+            alt="EduPath Logo" 
+            className="h-20 w-auto object-contain"
+          />
         </div>
 
         <h2 className="text-xl font-semibold text-center mb-6 text-foreground">

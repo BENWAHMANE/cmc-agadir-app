@@ -9,7 +9,8 @@ import { ContactInfo } from "@/components/ContactInfo";
 import { InstitutionInfo } from "@/components/InstitutionInfo";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { GraduationCap, LogOut, Loader2, Save } from "lucide-react";
+import { LogOut, Loader2, Save } from "lucide-react";
+import edupathLogo from "@/assets/edupath-logo.png";
 import { toast } from "sonner";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -163,15 +164,11 @@ const Index = () => {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-primary shadow-soft">
-                <GraduationCap className="h-7 w-7 text-primary-foreground" />
-              </div>
-              <div>
-                <h1 className="text-2xl font-bold text-foreground">EduPath</h1>
-                <p className="text-xs text-muted-foreground">
-                  Plateforme de Gestion des Formations
-                </p>
-              </div>
+              <img 
+                src={edupathLogo} 
+                alt="EduPath Logo" 
+                className="h-16 w-auto object-contain"
+              />
             </div>
 
             <div className="flex items-center gap-2">
