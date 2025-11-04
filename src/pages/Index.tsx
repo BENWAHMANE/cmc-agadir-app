@@ -259,24 +259,85 @@ const Index = () => {
               </div>
             </Card>
           ) : (
-            <Tabs defaultValue="contact" className="w-full">
-              <TabsList className="grid w-full grid-cols-2 mb-6">
-                <TabsTrigger value="contact">Contact Administration</TabsTrigger>
-                <TabsTrigger value="info">Informations CMC</TabsTrigger>
-              </TabsList>
-
-              <TabsContent value="contact">
-                <Card className="p-6 shadow-card">
-                  <ContactInfo />
+            <div className="space-y-6">
+              {/* Navigation Cards */}
+              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                <Card className="p-6 shadow-card hover:shadow-lg transition-shadow cursor-pointer" onClick={() => navigate("/results")}>
+                  <h3 className="text-lg font-semibold text-foreground mb-2">Les Résultats</h3>
+                  <p className="text-sm text-muted-foreground">Consultez vos résultats</p>
                 </Card>
-              </TabsContent>
 
-              <TabsContent value="info">
-                <Card className="p-6 shadow-card">
-                  <InstitutionInfo />
+                <Card className="p-6 shadow-card hover:shadow-lg transition-shadow cursor-pointer" onClick={() => navigate("/library")}>
+                  <h3 className="text-lg font-semibold text-foreground mb-2">Bibliothèque Numérique</h3>
+                  <p className="text-sm text-muted-foreground">Ressources éducatives</p>
                 </Card>
-              </TabsContent>
-            </Tabs>
+
+                <Card className="p-6 shadow-card hover:shadow-lg transition-shadow cursor-pointer" onClick={() => navigate("/announcements")}>
+                  <h3 className="text-lg font-semibold text-foreground mb-2">Annonces et Événements</h3>
+                  <p className="text-sm text-muted-foreground">Dernières nouvelles</p>
+                </Card>
+
+                <Card className="p-6 shadow-card hover:shadow-lg transition-shadow cursor-pointer" onClick={() => navigate("/suggestions")}>
+                  <h3 className="text-lg font-semibold text-foreground mb-2">Boîte à Suggestions</h3>
+                  <p className="text-sm text-muted-foreground">Partagez vos idées</p>
+                </Card>
+
+                <Card className="p-6 shadow-card hover:shadow-lg transition-shadow cursor-pointer" onClick={() => navigate("/notifications")}>
+                  <h3 className="text-lg font-semibold text-foreground mb-2">Alertes et Notifications</h3>
+                  <p className="text-sm text-muted-foreground">Gérez vos notifications</p>
+                </Card>
+
+                <Card className="p-6 shadow-card hover:shadow-lg transition-shadow cursor-pointer" onClick={() => navigate("/admin")}>
+                  <h3 className="text-lg font-semibold text-foreground mb-2">Espace Administratif</h3>
+                  <p className="text-sm text-muted-foreground">Gestion administrative</p>
+                </Card>
+
+                <Card className="p-6 shadow-card hover:shadow-lg transition-shadow cursor-pointer" onClick={() => navigate("/messaging")}>
+                  <h3 className="text-lg font-semibold text-foreground mb-2">Messagerie Interne</h3>
+                  <p className="text-sm text-muted-foreground">Communiquez</p>
+                </Card>
+
+                <Card className="p-6 shadow-card hover:shadow-lg transition-shadow cursor-pointer" onClick={() => navigate("/work-tracking")}>
+                  <h3 className="text-lg font-semibold text-foreground mb-2">Suivi des Travaux</h3>
+                  <p className="text-sm text-muted-foreground">Progression académique</p>
+                </Card>
+
+                <Card className="p-6 shadow-card hover:shadow-lg transition-shadow cursor-pointer" onClick={() => navigate("/courses")}>
+                  <h3 className="text-lg font-semibold text-foreground mb-2">Les Cours</h3>
+                  <p className="text-sm text-muted-foreground">Cours en ligne</p>
+                </Card>
+
+                <Card className="p-6 shadow-card hover:shadow-lg transition-shadow cursor-pointer" onClick={() => navigate("/forums")}>
+                  <h3 className="text-lg font-semibold text-foreground mb-2">Les Forums</h3>
+                  <p className="text-sm text-muted-foreground">Participez aux discussions</p>
+                </Card>
+
+                <Card className="p-6 shadow-card hover:shadow-lg transition-shadow cursor-pointer" onClick={() => navigate("/wellness")}>
+                  <h3 className="text-lg font-semibold text-foreground mb-2">Espace Bien-être</h3>
+                  <p className="text-sm text-muted-foreground">Santé et bien-être</p>
+                </Card>
+              </div>
+
+              {/* Original Tabs */}
+              <Tabs defaultValue="contact" className="w-full">
+                <TabsList className="grid w-full grid-cols-2 mb-6">
+                  <TabsTrigger value="contact">Contact Administration</TabsTrigger>
+                  <TabsTrigger value="info">Informations CMC</TabsTrigger>
+                </TabsList>
+
+                <TabsContent value="contact">
+                  <Card className="p-6 shadow-card">
+                    <ContactInfo />
+                  </Card>
+                </TabsContent>
+
+                <TabsContent value="info">
+                  <Card className="p-6 shadow-card">
+                    <InstitutionInfo />
+                  </Card>
+                </TabsContent>
+              </Tabs>
+            </div>
           )}
         </div>
       </main>
