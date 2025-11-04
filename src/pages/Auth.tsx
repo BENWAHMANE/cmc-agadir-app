@@ -105,8 +105,8 @@ const Auth = () => {
             <GraduationCap className="h-8 w-8 text-primary-foreground" />
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-foreground">CMC AGADIR</h1>
-            <p className="text-xs text-muted-foreground">Cité des Métiers et Compétences</p>
+            <h1 className="text-2xl font-bold text-foreground">EduPath</h1>
+            <p className="text-xs text-muted-foreground">Plateforme de Gestion des Formations</p>
           </div>
         </div>
 

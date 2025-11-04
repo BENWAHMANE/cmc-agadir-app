@@ -5,10 +5,10 @@ export function InstitutionInfo() {
     <div className="space-y-6">
       <div>
         <h2 className="text-2xl font-bold text-foreground mb-3">
-          CMC Souss-Massa
+          EduPath
         </h2>
         <p className="text-muted-foreground leading-relaxed">
-          Établissement nouvelle génération, la Cité des Métiers et des Compétences de Souss-Massa 
+          Établissement nouvelle génération, EduPath 
           vise à dispenser une formation innovante, tournée vers les nouveaux métiers, grâce à un 
           modèle pédagogique libérateur d'énergies.
         </p>
@@ -67,9 +67,9 @@ export function InstitutionInfo() {
       <div className="p-4 rounded-lg bg-gradient-primary text-primary-foreground">
         <h3 className="font-semibold mb-2">Notre Mission</h3>
         <p className="text-sm text-primary-foreground/90">
-          À travers une dynamique d'intelligence collective, la CMC représente un véritable 
+          À travers une dynamique d'intelligence collective, EduPath représente un véritable 
           catalyseur de performances et une locomotive incontournable pour le développement de 
-          la formation professionnelle dans la région Souss-Massa.
+          la formation professionnelle.
         </p>
       </div>
 

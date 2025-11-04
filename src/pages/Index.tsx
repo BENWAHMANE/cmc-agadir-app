@@ -167,9 +167,9 @@ const Index = () => {
                 <GraduationCap className="h-7 w-7 text-primary-foreground" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-foreground">CMC AGADIR</h1>
+                <h1 className="text-2xl font-bold text-foreground">EduPath</h1>
                 <p className="text-xs text-muted-foreground">
-                  Cité des Métiers et Compétences
+                  Plateforme de Gestion des Formations
                 </p>
               </div>
             </div>
@@ -288,7 +288,7 @@ const Index = () => {
       <footer className="border-t bg-card mt-12">
         <div className="container mx-auto px-4 py-6">
           <p className="text-center text-sm text-muted-foreground">
-            © {new Date().getFullYear()} CMC Souss-Massa - Tous droits réservés
+            © {new Date().getFullYear()} EduPath - Tous droits réservés
           </p>
         </div>
       </footer>
