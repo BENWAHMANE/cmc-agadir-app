@@ -6,6 +6,7 @@ import { Card } from "@/components/ui/card";
 import { LogOut, Loader2, Home } from "lucide-react";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { ImageManager } from "@/components/ImageManager";
 import edupathLogo from "@/assets/edupath-logo.png";
 
 const Admin = () => {
@@ -75,7 +76,8 @@ const Admin = () => {
           </div>
 
           <Card className="p-6 shadow-card">
-            <p className="text-center text-muted-foreground">Contenu en cours de développement</p>
+            <h2 className="text-2xl font-bold text-foreground mb-6">إدارة صور المؤسسة</h2>
+            <ImageManager />
           </Card>
         </div>
       </main>
