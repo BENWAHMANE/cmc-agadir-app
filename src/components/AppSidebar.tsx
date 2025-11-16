@@ -11,40 +11,42 @@ import {
   SidebarMenuButton,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const menuItems = [
-  { title: "الرئيسية", url: "/", icon: Home },
-  { title: "الدورات", url: "/courses", icon: BookOpen },
-  { title: "المنتديات", url: "/forums", icon: MessageSquare },
-  { title: "المكتبة", url: "/library", icon: Library },
-  { title: "الإعلانات", url: "/announcements", icon: Megaphone },
-  { title: "الإشعارات", url: "/notifications", icon: Bell },
-  { title: "النتائج", url: "/results", icon: TrendingUp },
-  { title: "الرسائل", url: "/messaging", icon: FileText },
-  { title: "العافية", url: "/wellness", icon: HeartPulse },
-  { title: "تتبع العمل", url: "/work-tracking", icon: Briefcase },
-  { title: "الاقتراحات", url: "/suggestions", icon: Settings },
+  { key: "home", url: "/", icon: Home },
+  { key: "courses", url: "/courses", icon: BookOpen },
+  { key: "forums", url: "/forums", icon: MessageSquare },
+  { key: "library", url: "/library", icon: Library },
+  { key: "announcements", url: "/announcements", icon: Megaphone },
+  { key: "notifications", url: "/notifications", icon: Bell },
+  { key: "results", url: "/results", icon: TrendingUp },
+  { key: "messaging", url: "/messaging", icon: FileText },
+  { key: "wellness", url: "/wellness", icon: HeartPulse },
+  { key: "workTracking", url: "/work-tracking", icon: Briefcase },
+  { key: "suggestions", url: "/suggestions", icon: Settings },
 ];
 
 export function AppSidebar() {
   const { open } = useSidebar();
   const location = useLocation();
+  const { t } = useLanguage();
 
   return (
     <Sidebar collapsible="icon">
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>القائمة الرئيسية</SidebarGroupLabel>
+          <SidebarGroupLabel>{t("mainMenu")}</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {menuItems.map((item) => {
                 const isActive = location.pathname === item.url;
                 return (
-                  <SidebarMenuItem key={item.title}>
+                  <SidebarMenuItem key={item.key}>
                     <SidebarMenuButton asChild isActive={isActive}>
                       <Link to={item.url}>
                         <item.icon className="h-4 w-4" />
-                        {open && <span>{item.title}</span>}
+                        {open && <span>{t(item.key)}</span>}
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
