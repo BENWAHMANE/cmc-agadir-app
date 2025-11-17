@@ -28,6 +28,11 @@ const translations = {
     changeLanguage: "Changer la langue",
     welcome: "Bienvenue sur EduPath",
     platform: "Plateforme de Gestion des Formations",
+    trainingCenter: "Centre de Formation",
+    welcomeMessage: "Bienvenue au Centre Multimédia de Casablanca",
+    heroDescription: "Formation professionnelle d'excellence dans divers domaines",
+    login: "Se connecter",
+    profile: "Profil",
   },
   ar: {
     home: "الرئيسية",
@@ -46,6 +51,11 @@ const translations = {
     changeLanguage: "تغيير اللغة",
     welcome: "مرحبا بكم في EduPath",
     platform: "منصة إدارة التدريب المهني",
+    trainingCenter: "مركز التدريب",
+    welcomeMessage: "مرحباً بكم في المركز المتعدد الوسائط بالدار البيضاء",
+    heroDescription: "تدريب مهني متميز في مجالات متنوعة",
+    login: "تسجيل الدخول",
+    profile: "الملف الشخصي",
   },
   en: {
     home: "Home",
@@ -64,6 +74,11 @@ const translations = {
     changeLanguage: "Change Language",
     welcome: "Welcome to EduPath",
     platform: "Professional Training Management Platform",
+    trainingCenter: "Training Center",
+    welcomeMessage: "Welcome to Casablanca Multimedia Center",
+    heroDescription: "Professional training excellence in various fields",
+    login: "Sign In",
+    profile: "Profile",
   },
 };
 
