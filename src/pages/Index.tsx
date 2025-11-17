@@ -139,65 +139,86 @@ const Index = () => {
 
   if (!user) {
     return (
-      <AppLayout>
-        <div className="min-h-[calc(100vh-8rem)]">
-          {/* Hero Section */}
+      <div className="min-h-screen">
+        <div className="container mx-auto px-4 py-8 space-y-12">
           <HeroSection />
-
-          {/* Latest Announcement */}
-          <div className="mb-8">
-            <LatestAnnouncement />
-          </div>
+          
+          <LatestAnnouncement />
 
           {/* Stats Section */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            <Card className="p-6 text-center hover:shadow-lg transition-shadow">
-              <Building className="h-12 w-12 mx-auto mb-3 text-primary" />
-              <h3 className="text-3xl font-bold text-foreground mb-2">11</h3>
-              <p className="text-muted-foreground">أقطاب المهن</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            <Card className="p-8 text-center space-y-3 bg-card/80 backdrop-blur-sm border-border shadow-card hover:shadow-glow transition-all group">
+              <div className="p-4 bg-primary/10 rounded-full w-16 h-16 mx-auto flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                <Users className="h-8 w-8 text-primary" />
+              </div>
+              <div className="text-4xl font-bold text-foreground">1000+</div>
+              <p className="text-muted-foreground font-medium">Stagiaires formés</p>
             </Card>
-            <Card className="p-6 text-center hover:shadow-lg transition-shadow">
-              <Users className="h-12 w-12 mx-auto mb-3 text-primary" />
-              <h3 className="text-3xl font-bold text-foreground mb-2">+1000</h3>
-              <p className="text-muted-foreground">المتدربين</p>
+            <Card className="p-8 text-center space-y-3 bg-card/80 backdrop-blur-sm border-border shadow-card hover:shadow-glow transition-all group">
+              <div className="p-4 bg-primary/10 rounded-full w-16 h-16 mx-auto flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                <Award className="h-8 w-8 text-primary" />
+              </div>
+              <div className="text-4xl font-bold text-foreground">15+</div>
+              <p className="text-muted-foreground font-medium">Années d'expérience</p>
             </Card>
-            <Card className="p-6 text-center hover:shadow-lg transition-shadow">
-              <Award className="h-12 w-12 mx-auto mb-3 text-primary" />
-              <h3 className="text-3xl font-bold text-foreground mb-2">95%</h3>
-              <p className="text-muted-foreground">نسبة الإدماج</p>
-            </Card>
-          </div>
-
-          {/* Institution Info Section */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-            <Card className="p-6 shadow-card">
-              <InstitutionInfo />
-            </Card>
-            <Card className="p-6 shadow-card">
-              <ContactInfo />
+            <Card className="p-8 text-center space-y-3 bg-card/80 backdrop-blur-sm border-border shadow-card hover:shadow-glow transition-all group">
+              <div className="p-4 bg-primary/10 rounded-full w-16 h-16 mx-auto flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                <Building className="h-8 w-8 text-primary" />
+              </div>
+              <div className="text-4xl font-bold text-foreground">11</div>
+              <p className="text-muted-foreground font-medium">Filières de formation</p>
             </Card>
           </div>
 
-          {/* Training Fields */}
-          <Card className="p-6 shadow-card">
-            <h2 className="text-2xl font-bold text-foreground mb-6">مجالات التدريب</h2>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {/* Training Fields Grid */}
+          <div className="max-w-6xl mx-auto space-y-8">
+            <div className="text-center space-y-4">
+              <h2 className="text-4xl font-bold text-foreground">Nos Filières de Formation</h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Découvrez nos programmes de formation professionnelle dans divers secteurs d'activité
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {trainingFields.map((field) => {
                 const Icon = field.icon;
                 return (
-                  <div
+                  <Card 
                     key={field.value}
-                    className="flex flex-col items-center p-4 rounded-lg bg-accent/50 hover:bg-accent transition-colors cursor-pointer"
+                    className="group overflow-hidden bg-card/80 backdrop-blur-sm border-border shadow-card hover:shadow-glow transition-all cursor-pointer"
                   >
-                    <Icon className="h-8 w-8 text-primary mb-2" />
-                    <span className="text-sm text-center text-foreground">{field.label}</span>
-                  </div>
+                    <div className="p-6 space-y-4">
+                      <div className="flex items-start justify-between">
+                        <div className="p-3 bg-primary/10 rounded-lg group-hover:bg-primary group-hover:scale-110 transition-all">
+                          <Icon className="h-6 w-6 text-primary group-hover:text-primary-foreground transition-colors" />
+                        </div>
+                        <div className="px-3 py-1 bg-primary/10 text-primary text-xs font-semibold rounded-full uppercase tracking-wide">
+                          Formation
+                        </div>
+                      </div>
+                      
+                      <h3 className="font-bold text-xl text-foreground group-hover:text-primary transition-colors">
+                        {field.label}
+                      </h3>
+                      
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        Formation professionnelle de qualité dans le domaine {field.label.toLowerCase()}
+                      </p>
+                      
+                      <div className="pt-2 text-xs text-muted-foreground">
+                        En savoir plus →
+                      </div>
+                    </div>
+                  </Card>
                 );
               })}
             </div>
-          </Card>
+          </div>
+
+          <InstitutionInfo />
+          <ContactInfo />
         </div>
-      </AppLayout>
+      </div>
     );
   }
 
