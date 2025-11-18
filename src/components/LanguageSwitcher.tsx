@@ -22,6 +22,12 @@ export function LanguageSwitcher() {
     { code: "en", label: "English" },
   ];
 
+  const handleLanguageChange = (code: "fr" | "ar" | "en") => {
+    setLanguage(code);
+    // Force re-render by updating localStorage
+    localStorage.setItem('edupath-language', code);
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -30,14 +36,15 @@ export function LanguageSwitcher() {
           <span className="sr-only">{t("changeLanguage")}</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="z-50">
+      <DropdownMenuContent align="end" side="right" className="z-50">
         {languages.map((lang) => (
           <DropdownMenuItem
             key={lang.code}
-            onClick={() => setLanguage(lang.code)}
-            className={language === lang.code ? "bg-accent" : ""}
+            onClick={() => handleLanguageChange(lang.code)}
+            className={language === lang.code ? "bg-accent font-medium" : ""}
           >
             {lang.label}
+            {language === lang.code && " ✓"}
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>

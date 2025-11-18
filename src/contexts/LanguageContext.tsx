@@ -83,11 +83,15 @@ const translations = {
 };
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguage] = useState<Language>("ar");
+  const [language, setLanguage] = useState<Language>(() => {
+    const saved = localStorage.getItem('edupath-language');
+    return (saved as Language) || "ar";
+  });
 
   useEffect(() => {
     document.documentElement.lang = language;
     document.documentElement.dir = language === "ar" ? "rtl" : "ltr";
+    localStorage.setItem('edupath-language', language);
   }, [language]);
 
   const t = (key: string): string => {

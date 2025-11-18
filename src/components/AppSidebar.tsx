@@ -1,8 +1,9 @@
-import { Home, BookOpen, MessageSquare, FileText, Library, Bell, TrendingUp, HeartPulse, Briefcase, Settings, Megaphone } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { Home, BookOpen, MessageSquare, FileText, Library, Bell, TrendingUp, HeartPulse, Briefcase, Settings, Megaphone, LogOut } from "lucide-react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -12,6 +13,11 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { LanguageSwitcher } from "./LanguageSwitcher";
+import { ThemeToggle } from "./ThemeToggle";
+import { Button } from "./ui/button";
+import { supabase } from "@/integrations/supabase/client";
+import { Separator } from "./ui/separator";
 
 const menuItems = [
   { key: "home", url: "/", icon: Home },
@@ -30,7 +36,13 @@ const menuItems = [
 export function AppSidebar() {
   const { open } = useSidebar();
   const location = useLocation();
+  const navigate = useNavigate();
   const { t } = useLanguage();
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    navigate("/auth");
+  };
 
   return (
     <Sidebar collapsible="icon">
@@ -56,6 +68,41 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      
+      <SidebarFooter>
+        <Separator className="mb-2" />
+        <div className="flex items-center gap-2 p-2">
+          {open ? (
+            <>
+              <LanguageSwitcher />
+              <ThemeToggle />
+              <Button 
+                variant="outline" 
+                size="icon" 
+                onClick={handleLogout} 
+                title={t("logout")}
+                className="h-9 w-9"
+              >
+                <LogOut className="h-4 w-4" />
+              </Button>
+            </>
+          ) : (
+            <div className="flex flex-col gap-2 items-center w-full">
+              <LanguageSwitcher />
+              <ThemeToggle />
+              <Button 
+                variant="outline" 
+                size="icon" 
+                onClick={handleLogout} 
+                title={t("logout")}
+                className="h-9 w-9"
+              >
+                <LogOut className="h-4 w-4" />
+              </Button>
+            </div>
+          )}
+        </div>
+      </SidebarFooter>
     </Sidebar>
   );
 }
