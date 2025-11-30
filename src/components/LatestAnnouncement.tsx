@@ -8,6 +8,7 @@ interface Announcement {
   title: string;
   content: string;
   created_at: string;
+  image_url?: string;
 }
 
 export function LatestAnnouncement() {
@@ -104,6 +105,13 @@ export function LatestAnnouncement() {
         </CardDescription>
       </CardHeader>
       <CardContent>
+        {announcement.image_url && (
+          <img 
+            src={announcement.image_url} 
+            alt={announcement.title}
+            className="w-full rounded-lg mb-4"
+          />
+        )}
         <p className="whitespace-pre-wrap">{announcement.content}</p>
       </CardContent>
     </Card>
