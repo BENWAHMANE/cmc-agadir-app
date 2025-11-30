@@ -85,7 +85,7 @@ const translations = {
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguage] = useState<Language>(() => {
     const saved = localStorage.getItem('edupath-language');
-    return (saved as Language) || "ar";
+    return (saved as Language) || "fr";
   });
 
   useEffect(() => {
