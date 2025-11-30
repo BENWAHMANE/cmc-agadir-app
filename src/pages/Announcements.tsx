@@ -15,6 +15,7 @@ interface Announcement {
   content: string;
   created_at: string;
   author_id: string;
+  image_url?: string;
 }
 
 const Announcements = () => {
@@ -24,6 +25,8 @@ const Announcements = () => {
   const [isCreating, setIsCreating] = useState(false);
   const [newTitle, setNewTitle] = useState("");
   const [newContent, setNewContent] = useState("");
+  const [newImageFile, setNewImageFile] = useState<File | null>(null);
+  const [uploading, setUploading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -66,13 +69,36 @@ const Announcements = () => {
       return;
     }
 
+    setUploading(true);
     try {
+      let imageUrl = null;
+
+      // Upload image if provided
+      if (newImageFile) {
+        const fileExt = newImageFile.name.split(".").pop();
+        const fileName = `${Math.random()}.${fileExt}`;
+        const filePath = `announcements/${fileName}`;
+
+        const { error: uploadError } = await supabase.storage
+          .from("institution-images")
+          .upload(filePath, newImageFile);
+
+        if (uploadError) throw uploadError;
+
+        const { data: { publicUrl } } = supabase.storage
+          .from("institution-images")
+          .getPublicUrl(filePath);
+
+        imageUrl = publicUrl;
+      }
+
       const { error } = await supabase
         .from("announcements")
         .insert({
           title: newTitle,
           content: newContent,
           author_id: user.id,
+          image_url: imageUrl,
         });
 
       if (error) throw error;
@@ -80,11 +106,14 @@ const Announcements = () => {
       toast.success("Annonce publiée avec succès");
       setNewTitle("");
       setNewContent("");
+      setNewImageFile(null);
       setIsCreating(false);
       loadAnnouncements();
     } catch (error) {
       console.error("Error creating announcement:", error);
       toast.error("Erreur lors de la publication");
+    } finally {
+      setUploading(false);
     }
   };
 
@@ -138,8 +167,19 @@ const Announcements = () => {
                   rows={5}
                 />
               </div>
+              <div>
+                <label className="text-sm font-medium mb-2 block">Image (optionnel)</label>
+                <Input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => setNewImageFile(e.target.files?.[0] || null)}
+                />
+              </div>
               <div className="flex gap-2">
-                <Button onClick={handleCreateAnnouncement}>Publier</Button>
+                <Button onClick={handleCreateAnnouncement} disabled={uploading}>
+                  {uploading ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : null}
+                  Publier
+                </Button>
                 <Button variant="outline" onClick={() => setIsCreating(false)}>
                   Annuler
                 </Button>
@@ -171,6 +211,13 @@ const Announcements = () => {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
+                  {announcement.image_url && (
+                    <img 
+                      src={announcement.image_url} 
+                      alt={announcement.title}
+                      className="w-full rounded-lg mb-4"
+                    />
+                  )}
                   <p className="whitespace-pre-wrap">{announcement.content}</p>
                 </CardContent>
               </Card>
