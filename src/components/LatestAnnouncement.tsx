@@ -109,7 +109,7 @@ export function LatestAnnouncement() {
           <img 
             src={announcement.image_url} 
             alt={announcement.title}
-            className="w-full rounded-lg mb-4"
+            className="w-full max-h-64 object-cover rounded-lg mb-4"
           />
         )}
         <p className="whitespace-pre-wrap">{announcement.content}</p>
