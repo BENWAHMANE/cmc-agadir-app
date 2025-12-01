@@ -52,10 +52,6 @@ export function HeroSection() {
       />
       
       <div className="relative z-20 text-center space-y-6 px-6 max-w-4xl mx-auto">
-        <div className="inline-block px-4 py-2 bg-card/20 backdrop-blur-sm rounded-full border border-card/30 text-white text-sm mb-4">
-          {t("trainingCenter")}
-        </div>
-        
         <h1 className="text-4xl md:text-6xl font-bold text-white drop-shadow-2xl">
           {t("welcomeMessage")}
         </h1>
