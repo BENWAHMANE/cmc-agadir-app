@@ -90,10 +90,10 @@ export function LatestAnnouncement() {
   }
 
   return (
-    <Card>
+    <Card className="overflow-hidden animate-fade-in">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <Megaphone className="h-5 w-5" />
+          <Megaphone className="h-5 w-5 text-primary" />
           {announcement.title}
         </CardTitle>
         <CardDescription>
@@ -104,15 +104,20 @@ export function LatestAnnouncement() {
           })}
         </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="space-y-4">
         {announcement.image_url && (
-          <img 
-            src={announcement.image_url} 
-            alt={announcement.title}
-            className="w-full max-h-64 object-cover rounded-lg mb-4"
-          />
+          <div className="relative group overflow-hidden rounded-xl border-2 border-primary/20 shadow-lg hover:shadow-xl transition-all duration-300">
+            <div className="aspect-[16/9] overflow-hidden bg-gradient-to-br from-primary/5 to-primary/10">
+              <img 
+                src={announcement.image_url} 
+                alt={announcement.title}
+                className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+              />
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          </div>
         )}
-        <p className="whitespace-pre-wrap">{announcement.content}</p>
+        <p className="whitespace-pre-wrap text-muted-foreground leading-relaxed">{announcement.content}</p>
       </CardContent>
     </Card>
   );
