@@ -106,15 +106,14 @@ export function LatestAnnouncement() {
       </CardHeader>
       <CardContent className="space-y-4">
         {announcement.image_url && (
-          <div className="relative group overflow-hidden rounded-xl border-2 border-primary/20 shadow-lg hover:shadow-xl transition-all duration-300">
-            <div className="aspect-[16/9] overflow-hidden bg-gradient-to-br from-primary/5 to-primary/10">
+          <div className="flex justify-center">
+            <div className="relative group overflow-hidden rounded-xl border-2 border-primary/20 shadow-md hover:shadow-lg transition-all duration-300 max-w-xs">
               <img 
                 src={announcement.image_url} 
                 alt={announcement.title}
-                className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                className="w-full h-auto object-contain transform group-hover:scale-105 transition-transform duration-500"
               />
             </div>
-            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           </div>
         )}
         <p className="whitespace-pre-wrap text-muted-foreground leading-relaxed">{announcement.content}</p>
