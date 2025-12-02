@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { SidebarProvider, SidebarTrigger, SidebarInset } from "@/components/ui/sidebar";
 import { AppSidebar } from "./AppSidebar";
-import edupathLogo from "@/assets/edupath-logo.png";
+import cmcEdupathLogo from "@/assets/cmc-edupath-logo.png";
 
 interface AppLayoutProps {
   children: ReactNode;
@@ -16,8 +16,7 @@ export function AppLayout({ children }: AppLayoutProps) {
           <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-card shadow-soft px-6">
             <SidebarTrigger />
             <div className="flex items-center gap-3">
-              <img src={edupathLogo} alt="EduPath Logo" className="h-10 w-auto object-contain" />
-              <span className="font-bold text-lg text-primary">EduPath</span>
+              <img src={cmcEdupathLogo} alt="CMC EduPath Logo" className="h-12 w-auto object-contain" />
             </div>
           </header>
           <main className="flex-1 p-6">
