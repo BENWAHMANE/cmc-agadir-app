@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, ReactNode, useEffect } from "react";
 
-type Language = "fr" | "ar" | "en";
+type Language = "fr" | "en";
 
 interface LanguageContextType {
   language: Language;
@@ -33,29 +33,6 @@ const translations = {
     heroDescription: "Votre chemin vers votre avenir",
     login: "Se connecter",
     profile: "Profil",
-  },
-  ar: {
-    home: "الرئيسية",
-    courses: "الدورات",
-    forums: "المنتديات",
-    library: "المكتبة",
-    announcements: "الإعلانات",
-    notifications: "الإشعارات",
-    results: "النتائج",
-    messaging: "الرسائل",
-    wellness: "العافية",
-    workTracking: "تتبع العمل",
-    suggestions: "الاقتراحات",
-    mainMenu: "القائمة الرئيسية",
-    logout: "تسجيل الخروج",
-    changeLanguage: "تغيير اللغة",
-    welcome: "مرحبا بكم في EduPath",
-    platform: "منصة إدارة التدريب المهني",
-    trainingCenter: "مركز التدريب",
-    welcomeMessage: "مرحباً بكم في EDUPATH",
-    heroDescription: "طريقك نحو مستقبلك",
-    login: "تسجيل الدخول",
-    profile: "الملف الشخصي",
   },
   en: {
     home: "Home",
@@ -90,7 +67,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     document.documentElement.lang = language;
-    document.documentElement.dir = language === "ar" ? "rtl" : "ltr";
+    document.documentElement.dir = "ltr";
     localStorage.setItem('edupath-language', language);
   }, [language]);
 

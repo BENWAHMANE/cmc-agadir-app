@@ -9,7 +9,7 @@ import {
 import { useLanguage } from "@/contexts/LanguageContext";
 
 type LanguageOption = {
-  code: "fr" | "ar" | "en";
+  code: "fr" | "en";
   label: string;
 };
 
@@ -18,11 +18,10 @@ export function LanguageSwitcher() {
 
   const languages: LanguageOption[] = [
     { code: "fr", label: "Français" },
-    { code: "ar", label: "العربية" },
     { code: "en", label: "English" },
   ];
 
-  const handleLanguageChange = (code: "fr" | "ar" | "en") => {
+  const handleLanguageChange = (code: "fr" | "en") => {
     setLanguage(code);
     // Force re-render by updating localStorage
     localStorage.setItem('edupath-language', code);
