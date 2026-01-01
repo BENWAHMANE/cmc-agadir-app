@@ -62,7 +62,11 @@ const translations = {
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguage] = useState<Language>(() => {
     const saved = localStorage.getItem('edupath-language');
-    return (saved as Language) || "fr";
+    // Only accept valid languages (fr or en), default to fr
+    if (saved === "fr" || saved === "en") {
+      return saved;
+    }
+    return "fr";
   });
 
   useEffect(() => {
