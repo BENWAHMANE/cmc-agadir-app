@@ -2,15 +2,23 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Loader2, Brain, GraduationCap, Heart, Users, Monitor, Languages, BookOpen } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Loader2, Brain, GraduationCap, Heart, Users, Monitor, Languages, BookOpen, Eye, Download, ChevronDown, ChevronUp } from "lucide-react";
 import { AppLayout } from "@/components/AppLayout";
+
+interface Book {
+  id: string;
+  title: string;
+  author: string;
+  pdfUrl: string;
+}
 
 interface Category {
   id: string;
   title: string;
   icon: React.ReactNode;
   description: string;
-  bookCount: number;
+  books: Book[];
 }
 
 const categories: Category[] = [
@@ -19,48 +27,68 @@ const categories: Category[] = [
     title: "Psychologie & Développement Personnel",
     icon: <Brain className="h-6 w-6" />,
     description: "Livres sur la psychologie, la motivation et le développement de soi",
-    bookCount: 0,
+    books: [
+      {
+        id: "7-habitudes",
+        title: "Les 7 habitudes des gens très efficaces",
+        author: "Stephen R. Covey",
+        pdfUrl: "/documents/library/psychology/Les_7_habitudes_des_gens_tres_efficaces.pdf",
+      },
+      {
+        id: "pouvoir-illimite",
+        title: "Pouvoir illimité",
+        author: "Anthony Robbins",
+        pdfUrl: "/documents/library/psychology/Pouvoir_illimite_Anthony_Robbins.pdf",
+      },
+      {
+        id: "comment-se-faire-des-amis",
+        title: "Comment se faire des amis",
+        author: "Dale Carnegie",
+        pdfUrl: "/documents/library/psychology/Comment_se_faire_des_amis.pdf",
+      },
+    ],
   },
   {
     id: "academic",
     title: "Réussite Scolaire & Méthodes d'Étude",
     icon: <GraduationCap className="h-6 w-6" />,
     description: "Guides et techniques pour améliorer vos performances académiques",
-    bookCount: 0,
+    books: [],
   },
   {
     id: "mental-health",
     title: "Santé Mentale & Bien-être",
     icon: <Heart className="h-6 w-6" />,
     description: "Ressources pour le bien-être mental et émotionnel",
-    bookCount: 0,
+    books: [],
   },
   {
     id: "education",
     title: "Éducation & Citoyenneté",
     icon: <Users className="h-6 w-6" />,
     description: "Ouvrages sur l'éducation civique et la citoyenneté",
-    bookCount: 0,
+    books: [],
   },
   {
     id: "digital",
     title: "Compétences Numériques & Technologie",
     icon: <Monitor className="h-6 w-6" />,
     description: "Livres sur l'informatique et les technologies numériques",
-    bookCount: 0,
+    books: [],
   },
   {
     id: "languages",
     title: "Langues & Communication",
     icon: <Languages className="h-6 w-6" />,
     description: "Ressources pour l'apprentissage des langues et la communication",
-    bookCount: 0,
+    books: [],
   },
 ];
 
 const Library = () => {
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [expandedCategory, setExpandedCategory] = useState<string | null>("psychology");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -90,6 +118,10 @@ const Library = () => {
     );
   }
 
+  const toggleCategory = (categoryId: string) => {
+    setExpandedCategory(expandedCategory === categoryId ? null : categoryId);
+  };
+
   return (
     <AppLayout>
       <div className="max-w-5xl mx-auto space-y-6">
@@ -101,35 +133,85 @@ const Library = () => {
           <p className="text-muted-foreground">Explorez nos ressources éducatives par catégorie</p>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="space-y-4">
           {categories.map((category) => (
-            <Card 
-              key={category.id} 
-              className="hover:shadow-lg transition-shadow cursor-pointer hover:border-primary/50"
-            >
-              <CardHeader className="pb-3">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-primary/10 rounded-lg text-primary">
-                    {category.icon}
+            <Card key={category.id} className="overflow-hidden">
+              <CardHeader 
+                className="pb-3 cursor-pointer hover:bg-muted/50 transition-colors"
+                onClick={() => toggleCategory(category.id)}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 bg-primary/10 rounded-lg text-primary">
+                      {category.icon}
+                    </div>
+                    <div>
+                      <CardTitle className="text-base leading-tight">{category.title}</CardTitle>
+                      <p className="text-sm text-muted-foreground mt-1">{category.description}</p>
+                    </div>
                   </div>
-                  <CardTitle className="text-base leading-tight">{category.title}</CardTitle>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded">
+                      {category.books.length} {category.books.length === 1 ? "livre" : "livres"}
+                    </span>
+                    {expandedCategory === category.id ? (
+                      <ChevronUp className="h-5 w-5 text-muted-foreground" />
+                    ) : (
+                      <ChevronDown className="h-5 w-5 text-muted-foreground" />
+                    )}
+                  </div>
                 </div>
               </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground mb-3">{category.description}</p>
-                <p className="text-xs text-muted-foreground">
-                  {category.bookCount} {category.bookCount === 1 ? "livre" : "livres"} disponible{category.bookCount !== 1 ? "s" : ""}
-                </p>
-              </CardContent>
+              
+              {expandedCategory === category.id && (
+                <CardContent className="pt-0">
+                  {category.books.length > 0 ? (
+                    <div className="space-y-3">
+                      {category.books.map((book) => (
+                        <div 
+                          key={book.id}
+                          className="flex items-center justify-between p-3 bg-muted/30 rounded-lg"
+                        >
+                          <div className="flex items-center gap-3">
+                            <BookOpen className="h-5 w-5 text-primary" />
+                            <div>
+                              <p className="font-medium text-sm">{book.title}</p>
+                              <p className="text-xs text-muted-foreground">{book.author}</p>
+                            </div>
+                          </div>
+                          <div className="flex gap-2">
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => window.open(book.pdfUrl, "_blank")}
+                            >
+                              <Eye className="h-4 w-4 mr-1" />
+                              Consulter
+                            </Button>
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              asChild
+                            >
+                              <a href={book.pdfUrl} download>
+                                <Download className="h-4 w-4 mr-1" />
+                                Télécharger
+                              </a>
+                            </Button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="text-sm text-muted-foreground text-center py-4">
+                      📚 Aucun livre disponible pour le moment
+                    </p>
+                  )}
+                </CardContent>
+              )}
             </Card>
           ))}
         </div>
-
-        <Card className="p-6 bg-muted/50">
-          <p className="text-center text-muted-foreground text-sm">
-            📚 Les livres seront bientôt disponibles. Restez à l'écoute !
-          </p>
-        </Card>
       </div>
     </AppLayout>
   );
