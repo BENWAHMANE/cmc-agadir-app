@@ -202,10 +202,10 @@ const Announcements = () => {
     
     return (
       <div className="space-y-8">
+        <GroupSection title="Plus ancien" icon={<Calendar className="h-4 w-4" />} items={grouped.older} />
         <GroupSection title="Aujourd'hui" icon={<Calendar className="h-4 w-4" />} items={grouped.today} />
         <GroupSection title="Cette semaine" icon={<Calendar className="h-4 w-4" />} items={grouped.thisWeek} />
         <GroupSection title="Ce mois" icon={<Calendar className="h-4 w-4" />} items={grouped.thisMonth} />
-        <GroupSection title="Plus ancien" icon={<Calendar className="h-4 w-4" />} items={grouped.older} />
       </div>
     );
   };
