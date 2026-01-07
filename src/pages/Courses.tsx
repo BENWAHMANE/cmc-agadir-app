@@ -2,11 +2,25 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { LogOut, Loader2, Home } from "lucide-react";
-import { LanguageSwitcher } from "@/components/LanguageSwitcher";
-import { ThemeToggle } from "@/components/ThemeToggle";
-import edupathLogo from "@/assets/edupath-logo.png";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Loader2, FileText, Download } from "lucide-react";
+import { AppLayout } from "@/components/AppLayout";
+
+interface Course {
+  id: string;
+  title: string;
+  description: string;
+  pdfUrl: string;
+}
+
+const courses: Course[] = [
+  {
+    id: "1",
+    title: "Hygiène et Sécurité dans le Milieu Hôtelier",
+    description: "Exploiter l'information relative aux lois et règlements en matière d'hygiène et de sécurité - Module N°102",
+    pdfUrl: "/documents/support_final_MH.pdf",
+  },
+];
 
 const Courses = () => {
   const [user, setUser] = useState<any>(null);
@@ -27,11 +41,6 @@ const Courses = () => {
     return () => subscription.unsubscribe();
   }, []);
 
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    navigate("/auth");
-  };
-
   if (!loading && !user) {
     navigate("/auth");
     return null;
@@ -46,40 +55,48 @@ const Courses = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <header className="border-b bg-card shadow-soft">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <img src={edupathLogo} alt="EduPath Logo" className="h-16 w-auto object-contain" />
-            </div>
-            <div className="flex items-center gap-2">
-              <Button variant="outline" size="icon" onClick={() => navigate("/")} className="h-9 w-9">
-                <Home className="h-4 w-4" />
-              </Button>
-              <LanguageSwitcher />
-              <ThemeToggle />
-              <Button variant="outline" size="icon" onClick={handleLogout} className="h-9 w-9">
-                <LogOut className="h-4 w-4" />
-              </Button>
-            </div>
-          </div>
+    <AppLayout>
+      <div className="max-w-4xl mx-auto space-y-6">
+        <div className="space-y-2">
+          <h1 className="text-3xl font-bold">Les Cours</h1>
+          <p className="text-muted-foreground">Accédez à vos supports de cours</p>
         </div>
-      </header>
 
-      <main className="container mx-auto px-4 py-8">
-        <div className="mx-auto max-w-4xl space-y-8">
-          <div className="text-center space-y-2">
-            <h1 className="text-3xl font-bold text-foreground md:text-4xl">Les Cours</h1>
-            <p className="text-muted-foreground">Accédez à vos cours en ligne</p>
-          </div>
-
-          <Card className="p-6 shadow-card">
-            <p className="text-center text-muted-foreground">Contenu en cours de développement</p>
-          </Card>
+        <div className="grid gap-4">
+          {courses.map((course) => (
+            <Card key={course.id} className="hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <div className="flex items-start gap-4">
+                  <div className="p-3 bg-primary/10 rounded-lg">
+                    <FileText className="h-6 w-6 text-primary" />
+                  </div>
+                  <div className="flex-1">
+                    <CardTitle className="text-lg">{course.title}</CardTitle>
+                    <CardDescription className="mt-1">{course.description}</CardDescription>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="flex gap-2">
+                  <Button asChild variant="default">
+                    <a href={course.pdfUrl} target="_blank" rel="noopener noreferrer">
+                      <FileText className="h-4 w-4 mr-2" />
+                      Consulter
+                    </a>
+                  </Button>
+                  <Button asChild variant="outline">
+                    <a href={course.pdfUrl} download>
+                      <Download className="h-4 w-4 mr-2" />
+                      Télécharger
+                    </a>
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
         </div>
-      </main>
-    </div>
+      </div>
+    </AppLayout>
   );
 };
 
