@@ -1,4 +1,4 @@
-import { Home, BookOpen, MessageSquare, FileText, Library, Bell, TrendingUp, HeartPulse, Briefcase, Settings, LayoutGrid, LogOut } from "lucide-react";
+import { Home, BookOpen, MessageSquare, FileText, Library, Bell, Calendar, HeartPulse, Briefcase, Settings, LayoutGrid, LogOut } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   Sidebar,
@@ -26,7 +26,7 @@ const menuItems = [
   { key: "library", url: "/library", icon: Library },
   { key: "announcements", url: "/announcements", icon: LayoutGrid },
   { key: "notifications", url: "/notifications", icon: Bell },
-  { key: "results", url: "/results", icon: TrendingUp },
+  { key: "schedule", url: "/schedule", icon: Calendar },
   { key: "messaging", url: "/messaging", icon: FileText },
   { key: "wellness", url: "/wellness", icon: HeartPulse },
   { key: "workTracking", url: "/work-tracking", icon: Briefcase },

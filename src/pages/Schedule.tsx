@@ -8,7 +8,7 @@ import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import edupathLogo from "@/assets/edupath-logo.png";
 
-const Results = () => {
+const Schedule = () => {
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -70,8 +70,8 @@ const Results = () => {
       <main className="container mx-auto px-4 py-8">
         <div className="mx-auto max-w-4xl space-y-8">
           <div className="text-center space-y-2">
-            <h1 className="text-3xl font-bold text-foreground md:text-4xl">Les Résultats</h1>
-            <p className="text-muted-foreground">Consultez vos résultats académiques</p>
+            <h1 className="text-3xl font-bold text-foreground md:text-4xl">Emploi du Temps</h1>
+            <p className="text-muted-foreground">Consultez votre emploi du temps</p>
           </div>
 
           <Card className="p-6 shadow-card">
@@ -83,4 +83,4 @@ const Results = () => {
   );
 };
 
-export default Results;
+export default Schedule;
