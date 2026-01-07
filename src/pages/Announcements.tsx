@@ -1,13 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { Loader2, Plus } from "lucide-react";
+import { Loader2, Plus, Calendar, Clock } from "lucide-react";
 import { toast } from "sonner";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { AppLayout } from "@/components/AppLayout";
+import { isToday, isThisWeek, isThisMonth, parseISO } from "date-fns";
 
 interface Announcement {
   id: string;
@@ -16,6 +17,13 @@ interface Announcement {
   created_at: string;
   author_id: string;
   image_url?: string;
+}
+
+interface GroupedAnnouncements {
+  today: Announcement[];
+  thisWeek: Announcement[];
+  thisMonth: Announcement[];
+  older: Announcement[];
 }
 
 const Announcements = () => {
@@ -117,6 +125,91 @@ const Announcements = () => {
     }
   };
 
+  const groupAnnouncements = (items: Announcement[]): GroupedAnnouncements => {
+    const groups: GroupedAnnouncements = {
+      today: [],
+      thisWeek: [],
+      thisMonth: [],
+      older: [],
+    };
+
+    items.forEach((item) => {
+      const date = parseISO(item.created_at);
+      if (isToday(date)) {
+        groups.today.push(item);
+      } else if (isThisWeek(date)) {
+        groups.thisWeek.push(item);
+      } else if (isThisMonth(date)) {
+        groups.thisMonth.push(item);
+      } else {
+        groups.older.push(item);
+      }
+    });
+
+    return groups;
+  };
+
+  const AnnouncementCard = ({ announcement }: { announcement: Announcement }) => (
+    <Card key={announcement.id} className="overflow-hidden">
+      <CardHeader className="pb-2">
+        <div className="flex items-start justify-between">
+          <CardTitle className="text-lg">{announcement.title}</CardTitle>
+        </div>
+        <CardDescription className="flex items-center gap-1">
+          <Clock className="h-3 w-3" />
+          {new Date(announcement.created_at).toLocaleDateString("fr-FR", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+          })}
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        {announcement.image_url && (
+          <img 
+            src={announcement.image_url} 
+            alt={announcement.title}
+            className="w-full rounded-lg mb-4 max-h-96 object-contain"
+          />
+        )}
+        <p className="whitespace-pre-wrap text-muted-foreground">{announcement.content}</p>
+      </CardContent>
+    </Card>
+  );
+
+  const GroupSection = ({ title, icon, items }: { title: string; icon: React.ReactNode; items: Announcement[] }) => {
+    if (items.length === 0) return null;
+    return (
+      <div className="space-y-3">
+        <div className="flex items-center gap-2 text-primary font-semibold border-b border-primary/20 pb-2">
+          {icon}
+          <span>{title}</span>
+          <span className="bg-primary/10 text-primary text-xs px-2 py-0.5 rounded-full">{items.length}</span>
+        </div>
+        <div className="space-y-4">
+          {items.map((announcement) => (
+            <AnnouncementCard key={announcement.id} announcement={announcement} />
+          ))}
+        </div>
+      </div>
+    );
+  };
+
+  const GroupedAnnouncementsList = ({ announcements }: { announcements: Announcement[] }) => {
+    const grouped = useMemo(() => groupAnnouncements(announcements), [announcements]);
+    
+    return (
+      <div className="space-y-8">
+        <GroupSection title="Aujourd'hui" icon={<Calendar className="h-4 w-4" />} items={grouped.today} />
+        <GroupSection title="Cette semaine" icon={<Calendar className="h-4 w-4" />} items={grouped.thisWeek} />
+        <GroupSection title="Ce mois" icon={<Calendar className="h-4 w-4" />} items={grouped.thisMonth} />
+        <GroupSection title="Plus ancien" icon={<Calendar className="h-4 w-4" />} items={grouped.older} />
+      </div>
+    );
+  };
+
   if (!loading && !user) {
     navigate("/auth");
     return null;
@@ -188,7 +281,7 @@ const Announcements = () => {
           </Card>
         )}
 
-        <div className="space-y-4">
+        <div className="space-y-6">
           {announcements.length === 0 ? (
             <Card>
               <CardContent className="py-8 text-center text-muted-foreground">
@@ -196,32 +289,7 @@ const Announcements = () => {
               </CardContent>
             </Card>
           ) : (
-            announcements.map((announcement) => (
-              <Card key={announcement.id}>
-                <CardHeader>
-                  <CardTitle>{announcement.title}</CardTitle>
-                  <CardDescription>
-                    {new Date(announcement.created_at).toLocaleDateString("fr-FR", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  {announcement.image_url && (
-                    <img 
-                      src={announcement.image_url} 
-                      alt={announcement.title}
-                      className="w-full rounded-lg mb-4"
-                    />
-                  )}
-                  <p className="whitespace-pre-wrap">{announcement.content}</p>
-                </CardContent>
-              </Card>
-            ))
+            <GroupedAnnouncementsList announcements={announcements} />
           )}
         </div>
       </div>
