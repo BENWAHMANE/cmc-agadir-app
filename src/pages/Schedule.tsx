@@ -9,98 +9,108 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import edupathLogo from "@/assets/edupath-logo.png";
 
-interface ScheduleItem {
+interface Filiere {
   id: string;
-  title: string;
-  description: string;
-  pdfUrl?: string;
+  name: string;
 }
 
-interface Category {
+interface Pole {
   id: string;
   title: string;
   description: string;
   icon: React.ComponentType<{ className?: string }>;
-  schedules: ScheduleItem[];
+  filieres: Filiere[];
 }
 
-const categories: Category[] = [
-  {
-    id: "sante",
-    title: "Santé",
-    description: "Emplois du temps des formations en santé et soins médicaux",
-    icon: Heart,
-    schedules: []
-  },
+const poles: Pole[] = [
   {
     id: "tourisme",
     title: "Tourisme",
-    description: "Emplois du temps des formations en hôtellerie et tourisme",
+    description: "Formations en hôtellerie et tourisme",
     icon: Plane,
-    schedules: []
+    filieres: [
+      { id: "mh", name: "Management Hôtellerie (MH)" },
+      { id: "mt", name: "Management Touristique (MT)" },
+      { id: "arts-culinaires", name: "Arts culinaires" },
+      { id: "art-table", name: "Art de la table" }
+    ]
+  },
+  {
+    id: "sante",
+    title: "Santé",
+    description: "Formations en santé et soins médicaux",
+    icon: Heart,
+    filieres: [
+      { id: "biomed", name: "Installation et maintenance biomédicale" },
+      { id: "radiologie", name: "Radiologie diagnostique" },
+      { id: "analyses", name: "Analyses médicales" }
+    ]
   },
   {
     id: "digital",
     title: "Digital",
-    description: "Emplois du temps des formations en technologies numériques",
+    description: "Formations en technologies numériques",
     icon: Monitor,
-    schedules: []
-  },
-  {
-    id: "agro-industrie",
-    title: "Agro-industrie",
-    description: "Emplois du temps des formations en transformation agroalimentaire",
-    icon: Factory,
-    schedules: []
-  },
-  {
-    id: "art-graphique",
-    title: "Art et industries graphiques",
-    description: "Emplois du temps des formations en arts graphiques et design",
-    icon: Palette,
-    schedules: []
+    filieres: [
+      { id: "infra-digital", name: "Infrastructure digitale" },
+      { id: "dev-digital", name: "Développement digital" },
+      { id: "design-digital", name: "Digital design" }
+    ]
   },
   {
     id: "peche",
     title: "Pêche",
-    description: "Emplois du temps des formations en pêche et aquaculture",
+    description: "Formations en pêche et aquaculture",
     icon: Fish,
-    schedules: []
+    filieres: [
+      { id: "maintenance-navires", name: "Maintenance mécanique des navires de pêche" },
+      { id: "aquaculture", name: "Aquaculture" },
+      { id: "greeur", name: "Gréeur d'engins de pêche" }
+    ]
   },
   {
     id: "artisanat",
     title: "Artisanat",
-    description: "Emplois du temps des formations en métiers artisanaux",
+    description: "Formations en métiers artisanaux",
     icon: Hammer,
-    schedules: []
-  },
-  {
-    id: "agriculture",
-    title: "Agriculture",
-    description: "Emplois du temps des formations en agriculture et élevage",
-    icon: Wheat,
-    schedules: []
+    filieres: [
+      { id: "haute-couture", name: "Technicien spécialisé en haute couture" },
+      { id: "bijouterie", name: "Technicien spécialisé en bijouterie-joaillerie" },
+      { id: "maroquinerie", name: "Technicien spécialisé en maroquinerie" }
+    ]
   },
   {
     id: "industrie",
     title: "Industrie",
-    description: "Emplois du temps des formations en maintenance et production industrielle",
+    description: "Formations en maintenance et production industrielle",
     icon: Settings,
-    schedules: []
-  },
-  {
-    id: "gestion-commerce",
-    title: "Gestion et commerce",
-    description: "Emplois du temps des formations en gestion et commerce",
-    icon: ShoppingCart,
-    schedules: []
+    filieres: [
+      { id: "genie-meca", name: "Génie mécanique" },
+      { id: "genie-elec", name: "Génie électrique" },
+      { id: "energies-renouv", name: "Énergies renouvelables" }
+    ]
   },
   {
     id: "btp",
     title: "BTP",
-    description: "Emplois du temps des formations en bâtiment et travaux publics",
+    description: "Formations en bâtiment et travaux publics",
     icon: Building2,
-    schedules: []
+    filieres: [
+      { id: "genie-civil", name: "Génie civil" },
+      { id: "construction-metal", name: "Construction métallique" },
+      { id: "electricite-bat", name: "Électricité du bâtiment" }
+    ]
+  },
+  {
+    id: "gestion",
+    title: "Gestion",
+    description: "Formations en gestion et commerce",
+    icon: ShoppingCart,
+    filieres: [
+      { id: "gestion-entreprise", name: "Gestion d'entreprise" },
+      { id: "compta-finance", name: "Comptabilité et finance" },
+      { id: "commerce-marketing", name: "Commerce et marketing" }
+    ]
   }
 ];
 
@@ -176,17 +186,22 @@ const Schedule = () => {
         <div className="mx-auto max-w-4xl space-y-8">
           <div className="text-center space-y-2">
             <h1 className="text-3xl font-bold text-foreground md:text-4xl">Emploi du Temps</h1>
-            <p className="text-muted-foreground">Consultez les emplois du temps par pôle de formation</p>
+            <p className="text-muted-foreground">Consultez les emplois du temps par filière et pôle de formation</p>
+          </div>
+
+          <div className="space-y-2">
+            <h2 className="text-xl font-semibold text-foreground">Filières</h2>
+            <p className="text-sm text-muted-foreground">Organisées par pôles de formation</p>
           </div>
 
           <div className="space-y-4">
-            {categories.map((category) => {
-              const IconComponent = category.icon;
-              const isOpen = openCategories.includes(category.id);
+            {poles.map((pole) => {
+              const IconComponent = pole.icon;
+              const isOpen = openCategories.includes(pole.id);
               
               return (
-                <Card key={category.id} className="overflow-hidden shadow-card">
-                  <Collapsible open={isOpen} onOpenChange={() => toggleCategory(category.id)}>
+                <Card key={pole.id} className="overflow-hidden shadow-card">
+                  <Collapsible open={isOpen} onOpenChange={() => toggleCategory(pole.id)}>
                     <CollapsibleTrigger className="w-full">
                       <div className="flex items-center justify-between p-4 hover:bg-muted/50 transition-colors">
                         <div className="flex items-center gap-3">
@@ -194,8 +209,8 @@ const Schedule = () => {
                             <IconComponent className="h-5 w-5 text-primary" />
                           </div>
                           <div className="text-left">
-                            <h3 className="font-semibold text-foreground">{category.title}</h3>
-                            <p className="text-sm text-muted-foreground">{category.description}</p>
+                            <h3 className="font-semibold text-foreground">{pole.title}</h3>
+                            <p className="text-sm text-muted-foreground">{pole.description}</p>
                           </div>
                         </div>
                         <ChevronDown className={`h-5 w-5 text-muted-foreground transition-transform ${isOpen ? 'rotate-180' : ''}`} />
@@ -203,33 +218,21 @@ const Schedule = () => {
                     </CollapsibleTrigger>
                     <CollapsibleContent>
                       <div className="border-t p-4">
-                        {category.schedules.length > 0 ? (
+                        {pole.filieres.length > 0 ? (
                           <div className="space-y-3">
-                            {category.schedules.map((schedule) => (
-                              <div key={schedule.id} className="flex items-center justify-between p-3 rounded-lg bg-muted/30">
+                            {pole.filieres.map((filiere) => (
+                              <div key={filiere.id} className="flex items-center justify-between p-3 rounded-lg bg-muted/30">
                                 <div className="flex items-center gap-3">
                                   <Calendar className="h-4 w-4 text-primary" />
-                                  <div>
-                                    <p className="font-medium text-foreground">{schedule.title}</p>
-                                    <p className="text-sm text-muted-foreground">{schedule.description}</p>
-                                  </div>
+                                  <p className="font-medium text-foreground">{filiere.name}</p>
                                 </div>
-                                {schedule.pdfUrl && (
-                                  <div className="flex gap-2">
-                                    <Button size="sm" variant="outline" onClick={() => window.open(schedule.pdfUrl, '_blank')}>
-                                      Consulter
-                                    </Button>
-                                    <Button size="sm" variant="default" asChild>
-                                      <a href={schedule.pdfUrl} download>Télécharger</a>
-                                    </Button>
-                                  </div>
-                                )}
+                                <span className="text-xs text-muted-foreground">Emploi du temps à venir</span>
                               </div>
                             ))}
                           </div>
                         ) : (
                           <p className="text-center text-muted-foreground py-4">
-                            Aucun emploi du temps disponible pour le moment
+                            Aucune filière disponible pour le moment
                           </p>
                         )}
                       </div>
