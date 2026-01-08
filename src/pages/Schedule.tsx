@@ -3,15 +3,22 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { LogOut, Loader2, Home, Heart, Plane, Monitor, Factory, Palette, Fish, Hammer, Wheat, Settings, ShoppingCart, Building2, ChevronDown, Calendar } from "lucide-react";
+import { LogOut, Loader2, Home, Heart, Plane, Monitor, Factory, Palette, Fish, Hammer, Wheat, Settings, ShoppingCart, Building2, ChevronDown, Calendar, FileText, Download } from "lucide-react";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import edupathLogo from "@/assets/edupath-logo.png";
 
+interface ScheduleFile {
+  id: string;
+  name: string;
+  url: string;
+}
+
 interface Filiere {
   id: string;
   name: string;
+  schedules?: ScheduleFile[];
 }
 
 interface Pole {
@@ -29,7 +36,15 @@ const poles: Pole[] = [
     description: "Formations en hôtellerie et tourisme",
     icon: Plane,
     filieres: [
-      { id: "mh", name: "Management Hôtellerie (MH)" },
+      { 
+        id: "mh", 
+        name: "Management Hôtellerie (MH)",
+        schedules: [
+          { id: "mh-general", name: "Emploi du temps MH", url: "/documents/schedules/MH.pdf" },
+          { id: "mh-101", name: "Emploi du temps MH101", url: "/documents/schedules/MH101.pdf" },
+          { id: "mh-103", name: "Emploi du temps MH103", url: "/documents/schedules/MH103.pdf" }
+        ]
+      },
       { id: "mt", name: "Management Touristique (MT)" },
       { id: "arts-culinaires", name: "Arts culinaires" },
       { id: "art-table", name: "Art de la table" }
@@ -221,12 +236,34 @@ const Schedule = () => {
                         {pole.filieres.length > 0 ? (
                           <div className="space-y-3">
                             {pole.filieres.map((filiere) => (
-                              <div key={filiere.id} className="flex items-center justify-between p-3 rounded-lg bg-muted/30">
-                                <div className="flex items-center gap-3">
+                              <div key={filiere.id} className="p-3 rounded-lg bg-muted/30">
+                                <div className="flex items-center gap-3 mb-2">
                                   <Calendar className="h-4 w-4 text-primary" />
                                   <p className="font-medium text-foreground">{filiere.name}</p>
                                 </div>
-                                <span className="text-xs text-muted-foreground">Emploi du temps à venir</span>
+                                {filiere.schedules && filiere.schedules.length > 0 ? (
+                                  <div className="ml-7 space-y-2">
+                                    {filiere.schedules.map((schedule) => (
+                                      <div key={schedule.id} className="flex items-center justify-between p-2 rounded bg-background/50">
+                                        <div className="flex items-center gap-2">
+                                          <FileText className="h-4 w-4 text-muted-foreground" />
+                                          <span className="text-sm text-foreground">{schedule.name}</span>
+                                        </div>
+                                        <a
+                                          href={schedule.url}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                          className="flex items-center gap-1 text-xs text-primary hover:underline"
+                                        >
+                                          <Download className="h-3 w-3" />
+                                          Télécharger
+                                        </a>
+                                      </div>
+                                    ))}
+                                  </div>
+                                ) : (
+                                  <p className="ml-7 text-xs text-muted-foreground">Emploi du temps à venir</p>
+                                )}
                               </div>
                             ))}
                           </div>
