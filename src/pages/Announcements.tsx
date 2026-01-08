@@ -168,11 +168,13 @@ const Announcements = () => {
       </CardHeader>
       <CardContent>
         {announcement.image_url && (
-          <img 
-            src={announcement.image_url} 
-            alt={announcement.title}
-            className="w-full rounded-lg mb-4 max-h-96 object-contain"
-          />
+          <div className="flex justify-center mb-4">
+            <img 
+              src={announcement.image_url} 
+              alt={announcement.title}
+              className="max-w-48 max-h-48 rounded-lg object-contain"
+            />
+          </div>
         )}
         <p className="whitespace-pre-wrap text-muted-foreground">{announcement.content}</p>
       </CardContent>
