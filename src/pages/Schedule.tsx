@@ -45,9 +45,30 @@ const poles: Pole[] = [
           { id: "mh-103", name: "Emploi du temps MH103", url: "/documents/schedules/MH103.pdf" }
         ]
       },
-      { id: "mt", name: "Management Touristique (MT)" },
-      { id: "arts-culinaires", name: "Arts culinaires" },
-      { id: "art-table", name: "Art de la table" }
+      { 
+        id: "mt", 
+        name: "Management Touristique (MT)",
+        schedules: [
+          { id: "mt-101", name: "Emploi du temps MT101", url: "/documents/schedules/MT101.pdf" },
+          { id: "mt-102", name: "Emploi du temps MT102", url: "/documents/schedules/MT102.pdf" }
+        ]
+      },
+      { 
+        id: "arts-culinaires", 
+        name: "Arts culinaires",
+        schedules: [
+          { id: "ac-101", name: "Emploi du temps AC101", url: "/documents/schedules/AC101.pdf" },
+          { id: "ac-102", name: "Emploi du temps AC102", url: "/documents/schedules/AC102.pdf" }
+        ]
+      },
+      { 
+        id: "art-table", 
+        name: "Art de la table (SRAT)",
+        schedules: [
+          { id: "srat-101", name: "Emploi du temps SRAT101", url: "/documents/schedules/SRAT101.pdf" },
+          { id: "srat-102", name: "Emploi du temps SRAT102", url: "/documents/schedules/SRAT102.pdf" }
+        ]
+      }
     ]
   },
   {
