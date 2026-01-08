@@ -49,7 +49,14 @@ const categories: Category[] = [
     title: "Digital",
     description: "Formations en informatique et technologies numériques",
     icon: <Monitor className="h-6 w-6" />,
-    courses: [],
+    courses: [
+      {
+        id: "d1",
+        title: "Logiciels de modélisation graphique - TP",
+        description: "Module M107 - Travaux pratiques sur les logiciels de modélisation graphique",
+        pdfUrl: "/documents/courses/M107_Logiciels_de_modélisation_graphique_TP.pdf",
+      },
+    ],
   },
   {
     id: "agro-industrie",
