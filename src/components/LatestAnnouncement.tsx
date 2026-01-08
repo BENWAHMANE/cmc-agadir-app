@@ -107,11 +107,11 @@ export function LatestAnnouncement() {
       <CardContent className="space-y-4">
         {announcement.image_url && (
           <div className="flex justify-center">
-            <div className="relative group overflow-hidden rounded-xl border-2 border-primary/20 shadow-md hover:shadow-lg transition-all duration-300 max-w-xs">
+            <div className="relative group overflow-hidden rounded-xl border-2 border-primary/20 shadow-md hover:shadow-lg transition-all duration-300 max-w-48">
               <img 
                 src={announcement.image_url} 
                 alt={announcement.title}
-                className="w-full h-auto object-contain transform group-hover:scale-105 transition-transform duration-500"
+                className="max-w-48 max-h-48 object-contain transform group-hover:scale-105 transition-transform duration-500"
               />
             </div>
           </div>
