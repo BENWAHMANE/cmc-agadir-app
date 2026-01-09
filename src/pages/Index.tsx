@@ -35,6 +35,7 @@ import {
 import { AppLayout } from "@/components/AppLayout";
 import { LatestAnnouncement } from "@/components/LatestAnnouncement";
 import { HeroSection } from "@/components/HeroSection";
+import edupathCmcLogo from "@/assets/edupath-cmc-logo.jpeg";
 
 const trainingFields = [
   { value: "sante", label: "Santé", icon: Heart },
@@ -141,6 +142,15 @@ const Index = () => {
     return (
       <div className="min-h-screen">
         <div className="container mx-auto px-4 py-8 space-y-12">
+          {/* Logo Section */}
+          <div className="flex justify-center pt-4">
+            <img 
+              src={edupathCmcLogo} 
+              alt="EduPath CMC Logo" 
+              className="h-24 md:h-32 w-auto object-contain"
+            />
+          </div>
+          
           <HeroSection />
           
           <LatestAnnouncement />
