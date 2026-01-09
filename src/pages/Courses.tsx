@@ -24,13 +24,6 @@ interface Category {
 
 const categories: Category[] = [
   {
-    id: "sante",
-    title: "Santé",
-    description: "Formations dans le domaine de la santé et du bien-être",
-    icon: <Heart className="h-6 w-6" />,
-    courses: [],
-  },
-  {
     id: "tourisme",
     title: "Tourisme",
     description: "Formations en hôtellerie, restauration et tourisme",
@@ -49,6 +42,13 @@ const categories: Category[] = [
         pdfUrl: "/documents/courses/MH_M01_Manuel_Stagiaire.pdf",
       },
     ],
+  },
+  {
+    id: "sante",
+    title: "Santé",
+    description: "Formations dans le domaine de la santé et du bien-être",
+    icon: <Heart className="h-6 w-6" />,
+    courses: [],
   },
   {
     id: "digital",
