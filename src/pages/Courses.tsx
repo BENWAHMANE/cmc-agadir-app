@@ -42,6 +42,12 @@ const categories: Category[] = [
         description: "Exploiter l'information relative aux lois et règlements en matière d'hygiène et de sécurité - Module N°102",
         pdfUrl: "/documents/support_final_MH.pdf",
       },
+      {
+        id: "2",
+        title: "Manuel Stagiaire - Module M01",
+        description: "Manuel du stagiaire pour le module M01 en hôtellerie",
+        pdfUrl: "/documents/courses/MH_M01_Manuel_Stagiaire.pdf",
+      },
     ],
   },
   {
