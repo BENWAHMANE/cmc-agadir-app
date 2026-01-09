@@ -1,4 +1,4 @@
-import { Home, BookOpen, MessageSquare, FileText, Library, Bell, Calendar, HeartPulse, Briefcase, Settings, LayoutGrid, LogOut } from "lucide-react";
+import { Home, BookOpen, FileText, Library, Bell, Calendar, HeartPulse, Briefcase, Settings, LayoutGrid, LogOut } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   Sidebar,
@@ -22,7 +22,6 @@ import { Separator } from "./ui/separator";
 const menuItems = [
   { key: "home", url: "/", icon: Home },
   { key: "courses", url: "/courses", icon: BookOpen },
-  { key: "forums", url: "/forums", icon: MessageSquare },
   { key: "library", url: "/library", icon: Library },
   { key: "announcements", url: "/announcements", icon: LayoutGrid },
   { key: "notifications", url: "/notifications", icon: Bell },

@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
 import { Loader2 } from "lucide-react";
-import edupathLogo from "@/assets/edupath-logo.png";
+import edupathCmcLogo from "@/assets/edupath-cmc-logo.jpeg";
 import { toast } from "sonner";
 import { z } from "zod";
 
@@ -103,8 +103,8 @@ const Auth = () => {
       <Card className="w-full max-w-md p-8 shadow-card">
         <div className="flex items-center justify-center mb-8">
           <img 
-            src={edupathLogo} 
-            alt="EduPath Logo" 
+            src={edupathCmcLogo} 
+            alt="EduPath CMC Logo" 
             className="h-20 w-auto object-contain"
           />
         </div>
