@@ -53,7 +53,14 @@ const categories: Category[] = [
     title: "Réussite Scolaire & Méthodes d'Étude",
     icon: <GraduationCap className="h-6 w-6" />,
     description: "Guides et techniques pour améliorer vos performances académiques",
-    books: [],
+    books: [
+      {
+        id: "milaman-dorothee-camara",
+        title: "Milaman Dorothée Camara",
+        author: "Document académique",
+        pdfUrl: "/documents/library/academic/17-Milaman-Dorothee-Camara.pdf",
+      },
+    ],
   },
   {
     id: "mental-health",
