@@ -41,6 +41,18 @@ const categories: Category[] = [
         description: "Manuel du stagiaire pour le module M01 en hôtellerie",
         pdfUrl: "/documents/courses/MH_M01_Manuel_Stagiaire.pdf",
       },
+      {
+        id: "3",
+        title: "Manuel Stagiaire - Module M01 (Partie 2)",
+        description: "Manuel du stagiaire pour le module M01 en hôtellerie - Partie 2",
+        pdfUrl: "/documents/courses/MH_M01_Manuel_Stagiaire-2.pdf",
+      },
+      {
+        id: "4",
+        title: "Manuel Stagiaire - Module M01 (Partie 3)",
+        description: "Manuel du stagiaire pour le module M01 en hôtellerie - Partie 3",
+        pdfUrl: "/documents/courses/MH_M01_Manuel_Stagiaire-3.pdf",
+      },
     ],
   },
   {
